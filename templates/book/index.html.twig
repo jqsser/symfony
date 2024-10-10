@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Books</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Publication Date</th>
+                <th>Enabled</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.publicationDate ? book.publicationDate|date('Y-m-d') : '' }}</td>
+                    <td>{{ book.enabled ? 'Yes' : 'No' }}</td>
+                    <td>{{ book.category }}</td>
+<td>
+
+<form action="{{ path('book_delete', { id: book.id }) }}" method="POST" style="display: inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
+                                <button type="submit" class="button" onclick="return confirm('Are you sure you want to delete this author?');">Delete</button>
+                            </form>
+</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('book_new') }}">Create a new book</a>
+{% endblock %}

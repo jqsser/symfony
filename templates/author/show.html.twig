@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ author.username }}</h1>
+    <p>Email: {{ author.email }}</p>
+    <a href="{{ path('author_edit', {'id': author.id}) }}">Edit</a>
+    <form action="{{ path('author_delete', {'id': author.id}) }}" method="post" style="display:inline;">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ author.id) }}">
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{{ path('author_index') }}">Back to list</a>
+{% endblock %}
