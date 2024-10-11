@@ -1,12 +1,50 @@
+{# templates/author/show.html.twig #}
+
 {% extends 'base.html.twig' %}
 
+{% block title %}Author Details{% endblock %}
+
 {% block body %}
-    <h1>{{ author.username }}</h1>
-    <p>Email: {{ author.email }}</p>
-    <a href="{{ path('author_edit', {'id': author.id}) }}">Edit</a>
-    <form action="{{ path('author_delete', {'id': author.id}) }}" method="post" style="display:inline;">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ author.id) }}">
-        <button type="submit">Delete</button>
-    </form>
-    <a href="{{ path('author_index') }}">Back to list</a>
+    <h1 style="text-align: center; font-family: 'Helvetica Neue', Arial, sans-serif; color: #2c3e50; margin-bottom: 30px;">Author Details</h1>
+
+    <div style="width: 50%; margin: 0 auto; padding: 30px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #ffffff; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);">
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 15px;">
+                <strong>ID:</strong> {{ author.id }}
+            </li>
+            <li style="margin-bottom: 15px;">
+                <strong>Username:</strong> {{ author.username }}
+            </li>
+            <li style="margin-bottom: 15px;">
+                <strong>Email:</strong> {{ author.email }}
+            </li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ path('author_edit', {'id': author.id}) }}" style="background-color: #2980b9; color: white; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 16px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); text-decoration: none; transition: background-color 0.3s ease;">
+            Edit Author
+        </a>
+        <a href="{{ path('author_index') }}" style="color: #2980b9; text-decoration: none; font-size: 16px; margin-left: 15px; transition: color 0.3s ease;">← Back to List</a>
+    </div>
+
+    <style>
+        a:hover {
+            color: #1a5276;
+        }
+
+        a:first-of-type:hover {
+            background-color: #3498db;
+        }
+
+        ul li {
+            font-size: 18px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+    </style>
 {% endblock %}

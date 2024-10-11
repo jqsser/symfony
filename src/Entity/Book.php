@@ -1,10 +1,12 @@
 <?php
 
+// src/Entity/Book.php
+
 namespace App\Entity;
 
 use App\Repository\BookRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -14,17 +16,25 @@ class Book
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Title is required.')] // Title is required
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $publicationDate = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $enabled = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $category = null; // Add this line
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Category is required.')] // Category is required
+    private ?string $category = null;
+
+    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Author $author = null;
+
+    // Getters and Setters...
 
     public function getId(): ?int
     {
@@ -39,7 +49,6 @@ class Book
     public function setTitle(?string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -51,7 +60,6 @@ class Book
     public function setPublicationDate(?\DateTimeInterface $publicationDate): static
     {
         $this->publicationDate = $publicationDate;
-
         return $this;
     }
 
@@ -63,21 +71,28 @@ class Book
     public function setEnabled(?bool $enabled): static
     {
         $this->enabled = $enabled;
-
         return $this;
     }
 
-    // Getter for category
     public function getCategory(): ?string
     {
         return $this->category;
     }
 
-    // Setter for category
     public function setCategory(?string $category): static
     {
         $this->category = $category;
+        return $this;
+    }
 
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): static
+    {
+        $this->author = $author;
         return $this;
     }
 }

@@ -1,19 +1,51 @@
+{# templates/book/edit.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier le Livre{% endblock %}
+{% block title %}Edit Book{% endblock %}
 
 {% block body %}
-    <h1>Modifier le livre</h1>
+    <h1 style="text-align: center; font-family: 'Helvetica Neue', Arial, sans-serif; color: #2c3e50; margin-bottom: 30px;">Edit Book</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Mettre à jour</button>
-    {{ form_end(form) }}
+    <div style="width: 60%; margin: 0 auto; padding: 30px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #ffffff; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);">
+        {{ form_start(form) }}
+            <div style="margin-bottom: 20px;">
+                {{ form_widget(form, {'attr': {'style': 'width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;'}}) }}
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" style="background-color: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-size: 16px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); transition: background-color 0.3s ease;">
+                    Update Book
+                </button>
+            </div>
+        {{ form_end(form) }}
+    </div>
 
-    <a href="{{ path('book_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ path('book_index') }}" style="color: #2980b9; text-decoration: none; font-size: 16px; transition: color 0.3s ease;">← Back to List</a>
+    </div>
 
-    <form method="post" action="{{ path('book_delete', {'id': book.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');" class="mt-3">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-    </form>
+    <style>
+        button:hover {
+            background-color: #2ecc71;
+        }
+
+        a:hover {
+            color: #1a5276;
+        }
+
+        form input, form select, form textarea {
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 8px rgba(39, 174, 96, 0.3);
+        }
+    </style>
 {% endblock %}

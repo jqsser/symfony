@@ -1,56 +1,46 @@
+{# templates/author/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Livres{% endblock %}
+{% block title %}Authors{% endblock %}
 
 {% block body %}
-    <h1>Liste des Livres</h1>
+<h1 style="text-align: center; font-family: Arial, sans-serif; color: #333;">Authors List</h1>
 
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
+<div style="margin-bottom: 20px; text-align: center;">
+    <a href="{{ path('author_new') }}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Create New Author</a>
+    <a href="{{ path('book_index') }}" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-left: 10px;">View Books</a>
+</div>
 
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endfor %}
-
-    <a href="{{ path('book_new') }}" class="btn btn-primary mb-3">Ajouter un nouveau livre</a>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>Date de publication</th>
-                <th>Catégorie</th>
-                <th>Activé</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for book in books %}
-            <tr>
-                <td>{{ book.id }}</td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.publicationDate ? book.publicationDate|date('Y-m-d') : '' }}</td>
-                <td>{{ book.category }}</td>
-                <td>{{ book.enabled ? 'Oui' : 'Non' }}</td>
-                <td>
-                    <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-sm btn-warning">Modifier</a>
-                    <form method="post" action="{{ path('book_delete', {'id': book.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');" style="display: inline-block">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
-                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse; font-family: Arial, sans-serif; border: 1px solid #ddd;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 12px; border: 1px solid #ddd;">ID</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Username</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Email</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+            <tr style="text-align: center;">
+                <td style="padding: 12px; border: 1px solid #ddd;">{{ author.id }}</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">{{ author.username }}</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">{{ author.email }}</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">
+                    <a href="{{ path('author_show', { id: author.id }) }}" style="color: #1a73e8; text-decoration: none;">Show</a> |
+                    <a href="{{ path('author_edit', { id: author.id }) }}" style="color: #1a73e8; text-decoration: none;">Edit</a> |
+                    <form method="post" action="{{ path('author_delete', { id: author.id }) }}" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ author.id) }}">
+                        <button type="submit" style="background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Delete</button>
                     </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">Aucun livre trouvé</td>
+                <td colspan="4" style="padding: 12px; text-align: center; border: 1px solid #ddd;">No authors found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 {% endblock %}

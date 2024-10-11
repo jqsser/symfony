@@ -1,4 +1,5 @@
 <?php
+// src/Form/AuthorType.php
 
 namespace App\Form;
 
@@ -14,8 +15,12 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class);
+            ->add('username', TextType::class, [
+                'required' => false,
+            ])
+            ->add('email', EmailType::class, [
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
