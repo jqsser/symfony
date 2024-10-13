@@ -3,19 +3,48 @@
 {% block title %}Book Details{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1>Book Details</h1>
+<div style="width: 60%; margin: 50px auto; padding: 30px; background-color: #fdfdfd; border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); font-family: 'Helvetica Neue', Arial, sans-serif;">
 
-    <p><strong>Title:</strong> {{ book.title }}</p>
-    <p><strong>Publication Date:</strong> {{ book.publicationDate ? book.publicationDate|date('Y-m-d') : 'N/A' }}</p>
-    <p><strong>Status:</strong> {{ book.enabled ? 'Enabled' : 'Disabled' }}</p>
+    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">Book Details</h1>
 
-    <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-warning">Edit</a>
-    <form action="{{ path('book_delete', {'id': book.id}) }}" method="post" style="display:inline;">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
-        <button class="btn btn-danger" type="submit">Delete</button>
-    </form>
+    <p style="font-size: 18px; color: #333;"><strong>Title:</strong> {{ book.title }}</p>
+    <p style="font-size: 18px; color: #333;"><strong>Publication Date:</strong> 
+        {{ book.publicationDate ? book.publicationDate|date('Y-m-d') : 'N/A' }}
+    </p>
+    <p style="font-size: 18px; color: #333;"><strong>Status:</strong> 
+        <span style="color: {{ book.enabled ? '#27ae60' : '#c0392b' }};">
+            {{ book.enabled ? 'Enabled' : 'Disabled' }}
+        </span>
+    </p>
 
-    <a href="{{ path('book_index') }}" class="btn btn-secondary mt-3">Back to List</a>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ path('book_edit', {'id': book.id}) }}" 
+           style="background-color: #f39c12; color: white; padding: 12px 25px; border: none; border-radius: 4px; text-decoration: none; margin-right: 10px;">
+            Edit
+        </a>
+
+        <form action="{{ path('book_delete', {'id': book.id}) }}" method="post" style="display: inline;">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
+            <button type="submit" 
+                style="background-color: #e74c3c; color: white; padding: 12px 25px; border: none; border-radius: 4px; cursor: pointer;">
+                Delete
+            </button>
+        </form>
+
+        <a href="{{ path('book_index') }}" 
+           style="display: block; margin-top: 20px; color: #2980b9; text-decoration: none; font-size: 16px;">
+            ← Back to List
+        </a>
+    </div>
 </div>
+
+<style>
+    a:hover {
+        background-color: #d35400;
+    }
+
+    button:hover {
+        background-color: #c0392b;
+    }
+</style>
 {% endblock %}

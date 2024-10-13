@@ -22,7 +22,7 @@ class BookType extends AbstractType
             ])
             ->add('publicationDate', DateType::class, [
                 'widget' => 'single_text',
-                'required' => false,
+                'required' => true,
             ])
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
@@ -39,7 +39,7 @@ class BookType extends AbstractType
                     'Self-Help' => 'self_help',
                 ],
                 'placeholder' => 'Select a category', // Optional placeholder
-                'required' => false,
+                'required' => true,
             ])
             ->add('author'); // Add Author selection if needed
     }
