@@ -1,28 +1,37 @@
-# Symfony Project
+Navigate to the project directory:
 
-![Symfony](https://symfony.com/logo/symfony_black_64x64.png)
+bash
+Copier le code
+cd symfony
+Install the dependencies:
 
-## Description
+bash
+Copier le code
+composer install
+Set up your environment variables:
 
-This is a Symfony project that [briefly describe what your project does]. 
+Copy .env to .env.local and configure your database settings and any other environment variables.
+Create the database:
 
-## Features
+bash
+Copier le code
+php bin/console doctrine:database:create
+Run migrations (if applicable):
 
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
-- [Feature 4]
+bash
+Copier le code
+php bin/console doctrine:migrations:migrate
+Usage
+To run the project locally, use the Symfony server:
 
-## Requirements
+bash
+Copier le code
+symfony server:start
+Then navigate to http://localhost:8000 in your browser.
 
-- PHP 8.0 or higher
-- Composer
-- [Any other requirements]
+Testing
+To run the tests, use:
 
-## Installation
-
-To install this project, follow these steps:
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/jqsser/symfony.git
+bash
+Copier le code
+php bin/phpunit
