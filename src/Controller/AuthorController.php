@@ -170,7 +170,7 @@ class AuthorController extends AbstractController
 
         return $this->redirectToRoute('author_index');
     }
-
-
-
 }
+
+
+
