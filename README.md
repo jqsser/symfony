@@ -1,12 +1,15 @@
 ### Instructions to Add This README to Your Project
+# Symfony Project
 
-1. **Create a file named `README.md`** in the root of your Symfony project.
-2. **Copy and paste** the above content into your `README.md` file.
-3. **Customize** any sections if needed (e.g., project title, acknowledgments).
-4. **Save** the file.
-5. **Commit and push** the changes to your GitHub repository:
+## Introduction
+This project is a [brief description of your project].
 
-```bash
-git add README.md
-git commit -m "Add README file with installation and usage instructions"
-git push origin master
+## Requirements
+- PHP 7.4 or higher
+- Composer
+- Symfony CLI (optional but recommended)
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
