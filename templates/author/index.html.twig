@@ -1,0 +1,61 @@
+{# templates/author/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Authors{% endblock %}
+
+{% block body %}
+<h1 style="text-align: center; font-family: Arial, sans-serif; color: #333;">Authors List</h1>
+
+<div style="margin-bottom: 20px; text-align: center;">
+    <a href="{{ path('author_new') }}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Create New Author</a>
+    <a href="{{ path('book_index') }}" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-left: 10px;">View Books</a>
+    <a href="{{ path('delete_empty_authors') }}" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-left: 10px;" 
+       onclick="return confirm('Are you sure you want to delete authors with no books? This action cannot be undone.');">Delete Empty Authors</a>
+</div>
+
+{# Search Form #}
+<div style="text-align: center; margin-bottom: 20px;">
+    {{ form_start(searchForm) }}
+        <label for="minBooks">Min Books:</label>
+        {{ form_widget(searchForm.minBooks, { 'attr': {'style': 'width: 60px; margin-right: 10px;'}}) }}
+        
+        <label for="maxBooks">Max Books:</label>
+        {{ form_widget(searchForm.maxBooks, { 'attr': {'style': 'width: 60px; margin-right: 10px;'}}) }}
+
+        <button type="submit" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+    {{ form_end(searchForm) }}
+</div>
+
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse; font-family: Arial, sans-serif; border: 1px solid #ddd;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 12px; border: 1px solid #ddd;">ID</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Username</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Email</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+            <tr style="text-align: center;">
+                <td style="padding: 12px; border: 1px solid #ddd;">{{ author.id }}</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">{{ author.username }}</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">{{ author.email }}</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">
+                    <a href="{{ path('author_show', { id: author.id }) }}" style="color: #1a73e8; text-decoration: none;">Show</a> |
+                    <a href="{{ path('author_edit', { id: author.id }) }}" style="color: #1a73e8; text-decoration: none;">Edit</a> |
+                    <form method="post" action="{{ path('author_delete', { id: author.id }) }}" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ author.id) }}">
+                        <button type="submit" style="background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" style="padding: 12px; text-align: center; border: 1px solid #ddd;">No authors found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
