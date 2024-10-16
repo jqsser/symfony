@@ -10,16 +10,12 @@ This project is a [brief description of your project].
 - Symfony CLI (optional but recommended)
 
 ## Installation
-1. Clone the repository:
+1. Clone the repository and Install dependencies:
    ```bash
    git clone https://github.com/your-username/your-repo.git
 Navigate to the project directory:
 
    ```bash  
    cd your-repo
-
-2. Install dependencies:
-
-```bash
-composer install
+   composer install
 
